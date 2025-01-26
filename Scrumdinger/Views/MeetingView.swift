@@ -12,7 +12,7 @@ struct MeetingView: View {
     
     @Binding var scrum: DailyScrum
     @StateObject var scrumTimer = ScrumTimer()
-    //@StateObject var speechRecognizer = SpeechRecognizer()
+    @StateObject var speechRecognizer = SpeechRecognizer()
     @State private var isRecording = false
     
     // finge que isso funciona
@@ -48,8 +48,8 @@ struct MeetingView: View {
             player.seek(to: .zero)
             player.play()
         }
-        //speechRecognizer.resetTranscript()
-        //speechRecognizer.startTranscribing()
+        speechRecognizer.resetTranscript()
+        speechRecognizer.startTranscribing()
         isRecording = true
         scrumTimer.startScrum()
     }
@@ -57,9 +57,9 @@ struct MeetingView: View {
     private func endScrum (){
         scrumTimer.stopScrum()
         isRecording = false
-        //speechRecognizer.stopTranscribing()
-        //let newHistory = History(attendees: scrum.attendees, transcript: speechRecognizer.transcript)
-        //scrum.history.insert(newHistory, at: 0)
+        speechRecognizer.stopTranscribing()
+        let newHistory = History(attendees: scrum.attendees, transcript: speechRecognizer.transcript)
+        scrum.history.insert(newHistory, at: 0)
     }
     
 }
